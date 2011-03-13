@@ -1,0 +1,53 @@
+<html>
+<head><title>ES Hide Posts Options</title></head>
+<link rel="stylesheet" href="options.css" type="text/css">
+<script src="jquery/jquery-1.5.js"></script>
+<script src="storage.js"></script>
+<script src="esblock.js"></script>
+<script type="text/javascript">
+
+// Saves options to localStorage.
+function save_options() {  
+	var blockedUsernames = {};
+	$('li').each(function(i){
+		var item = $(this);
+		if(item.hasClass("deleted"))
+			return;
+			
+		item = item[0];	
+		var username = item.innerText;
+		blockedUsernames[username] = "x";
+	});
+	storage.blockedUsernames.set(blockedUsernames);
+	
+	$('button').before("<p>Options saved.</p>")	
+}
+
+// Restores select box state to saved value from localStorage.
+function restore_options() {
+	var placeholder = $('button');
+	var blockedUsernames = storage.blockedUsernames.get();
+	for(var username in blockedUsernames){	
+		var fragment = "<li>" + username + "</li>";
+		var item = $(fragment);		
+		item.click(function(e){
+			$(this).toggleClass('deleted');
+		});
+		placeholder.before(item);
+	}	  
+}
+
+function sendStats(){
+	sendUsageInfo();
+}
+
+</script>
+
+<body onload="restore_options()">
+	<h1>ES Hide Posts Options</h1>
+	<p>
+		Post from the following users will be hidden. Click on a username to remove it from the list.
+	</p>	
+	<button onclick="save_options()">Save</button>	
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "ES hide posts",
+  "description": "Hide posts from users you choose on elitesecurity.org forums.",
+  "version": "1.0.8",
+  "permissions": [
+	"tabs",
+	"contextMenus"
+  ],
+  "icons": {
+    "16": "hide16.png",
+    "48": "48.png",
+	"128": "128.png"
+  },
+  "background_page": "background.html",
+  "options_page": "options.html",
+  "content_scripts": [
+	{
+		"matches": ["http://*.elitesecurity.org/*"],
+		"css": ["content.css"],
+		"js": ["content.js"],
+		"run_at": "document_end"
+	},
+	{
+		"matches": ["http://*.elitesecurity.org/*"],
+		"js": [				
+				"jquery/jquery-1.5.js"
+		],
+		"run_at": "document_start"
+	}
+  ]
+}

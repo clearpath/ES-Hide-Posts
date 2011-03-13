@@ -1,0 +1,8 @@
+body
+{
+	font-family:"Palatino Linotype";
+}
+
+li {cursor: pointer; }
+
+.deleted { text-decoration: line-through; color: red; }
